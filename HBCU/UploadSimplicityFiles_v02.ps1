@@ -38,7 +38,7 @@ function runWinSCPCopyFiles {
   & "$winSCPLoc\WinSCP.com" `
   /log="$simplFileLoc\Log\Simplicity_WinSCP-$timeStamp.log" /ini=nul `
   /command `
-    "open sftp://higheredinstitutionnameudrop:ebjkar6nmr8m98@higheredinstitutionnameu-csm.drop.symplicity.com/ -hostkey=`"`"ssh-ed25519 255 GSs8YtW+d+T5siKb3d6jsUQQassglS8W/Jgxw2CNG9Q=`"`"" `
+    "open sftp://higheredinstitutionnameudrop:ebjkar6nmr8m98@higheredinstitutionnameu-csm.drop.obfuscatedvendorcompany.com/ -hostkey=`"`"ssh-ed25519 255 xxxxxx=`"`"" `
     "put $simplFileLoc\Simplicity* -nopreservetime -nopermissions" `
     "exit"
 

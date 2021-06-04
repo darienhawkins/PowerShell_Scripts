@@ -68,7 +68,7 @@ $lastLine=(Get-Content $appworXTarget\*$todaysDate* -Tail 1)
 
 # Send email
 $fileNameOnly=(Get-ChildItem $appworXTarget\*$todaysDate* -Name).ToString()
-$msgEmailServer="aaa.bbb.11.46"
+$msgEmailServer="aaa.bbb.ccc.ddd"
 $msgMessage="Cashnet file $fileNameOnly retrieved from eft.cashnet.com, renamed to $destFileNme, and placed for processing."
 $msgSubject="Cashnet File $fileNameOnly Retrieved"
 $msgRecipients="bannerjobs@higheredinstitutiondomain.edu,darien.hawkins@higheredinstitutiondomain.edu"

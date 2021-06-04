@@ -20,7 +20,7 @@ function copyViaWinSCP {
   /log="$localLiveSafePath\Logs\uploadlog_$curDateTimeStamp.log" /ini="$localLiveSafePath\etc\LiveSafe_WinSCP.ini" `
   /command `
     "bin" `
-    "open sftp://guidaddress@aaa.bbb.ccc.ddd:4911/ -hostkey=`"`"ssh-xxx=`"`" -privatekey=`"`"$localLiveSafePath\Keys\$privateSSHKey`"`" -passphrase=`"`"notshownhere`"`"" `
+    "open sftp://guidaddress@aaa.bbb.ccc.ddd:xxxx/ -hostkey=`"`"ssh-xxx=`"`" -privatekey=`"`"$localLiveSafePath\Keys\$privateSSHKey`"`" -passphrase=`"`"obfuscatedpass`"`"" `
     "put $localLiveSafePath\$liveSafeFilename.csv -nopreservetime -nopermissions" `
     "exit"
 
