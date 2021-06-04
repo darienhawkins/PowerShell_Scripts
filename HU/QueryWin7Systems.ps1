@@ -4,7 +4,7 @@ $desFile2="\\genericfileserver01\HUCIT\Documents\outputs\otherinfo.txt"
 Get-ADComputer `
     -Filter {(operatingsystem -like $eolSystems) -and (Enabled -eq $true)} `
     -Properties operatingsystem,ipv4address | `
-    Where-Object ipv4address -like "137*" | `
+    Where-Object ipv4address -like "aaa*" | `
     Select-Object name,ipv4address,operatingsystem |`
     Export-Csv -NoTypeInformation $desFile
 

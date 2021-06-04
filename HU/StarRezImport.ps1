@@ -21,7 +21,7 @@
 $baseArgosFolder="\\genericfileserver01\reports$\Argos_Evisions"
 $subArgosFolder="StarRez"
 $subArgosArchiveFolder="StarRez-Archive-AfterMovedandProcessed"
-$starRezDestFolder="\\hustarrezfe1\StarRezTransferFiles\DailyDatafiles"
+$starRezDestFolder="\\genericserver04\StarRezTransferFiles\DailyDatafiles"
 
 function checkforExistence {
     # Check for the file before proceeding
