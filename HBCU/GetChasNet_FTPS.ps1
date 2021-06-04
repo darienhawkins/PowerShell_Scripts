@@ -1,4 +1,5 @@
 clear-host
+# Important information obfuscated (hostname, IP address, username, password, etc)
 
 ###################################################################################
 #
@@ -24,7 +25,7 @@ clear-host
 
 # Define variables, establish environment
 
-$serverBase="\\genericfileserver01\systems"
+$serverBase="\\DellGenericFileServer01\systems"
 $uncPath="$serverBase\BannerProd\touchnet\Cashnet"
 $sendMailFolder="$serverBase\_Tools\SendEmail"
 $winscpPath="$serverBase\_Tools\WinSCP"

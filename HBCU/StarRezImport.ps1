@@ -1,3 +1,5 @@
+# Important information obfuscated (hostname, IP address, username, password, etc)
+
 <#
 ###############################################################################
 
@@ -18,7 +20,7 @@
 #>
 
 # Declare script variables
-$baseArgosFolder="\\genericfileserver01\reports$\Argos_Evisions"
+$baseArgosFolder="\\DellGenericFileServer01\reports$\Argos_Evisions"
 $subArgosFolder="StarRez"
 $subArgosArchiveFolder="StarRez-Archive-AfterMovedandProcessed"
 $starRezDestFolder="\\genericserver04\StarRezTransferFiles\DailyDatafiles"

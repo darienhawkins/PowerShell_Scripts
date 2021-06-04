@@ -1,3 +1,5 @@
+# Important information obfuscated (hostname, IP address, username, password, etc)
+
 # Take entered computer name as an argument
 Param(
    [Parameter(Position=1)]

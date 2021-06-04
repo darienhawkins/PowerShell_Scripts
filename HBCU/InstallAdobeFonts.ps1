@@ -1,3 +1,5 @@
+# Important information obfuscated (hostname, IP address, username, password, etc)
+
 <#
     Auth: Hawkins, Darien H
           Director, Computer Center
@@ -12,7 +14,7 @@
     
 #>
 
-$sourceShare="\\genericfileserver01\Shares"
+$sourceShare="\\DellGenericFileServer01\Shares"
 $fontSourceFolder=$sourceShare+"\Applications\Adobe\AdobeFonts"
 $fontNamespace = 0x14
 $objShell = New-Object -ComObject Shell.Application
