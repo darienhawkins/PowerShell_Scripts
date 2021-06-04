@@ -1,5 +1,5 @@
 $peepsWithNOEmployeeID=Get-ADUser -Properties employeeid,uid,mail `
-    -Filter { (uid -like "0*") -and ((Enabled -eq $true) -and (employeeid -notlike "*")) -and (mail -like "*@hamptonu.edu") -and (samaccountname -like "*.*") } `
+    -Filter { (uid -like "0*") -and ((Enabled -eq $true) -and (employeeid -notlike "*")) -and (mail -like "*@higheredinstitutiondomain.edu") -and (samaccountname -like "*.*") } `
     | Select-Object samaccountname,employeeid,mail,uid `
     | Where-Object mail -NotLike "*zoom*"
 
@@ -7,7 +7,7 @@ foreach ($curPeep in $peepsWithNOEmployeeID) {
         $empSam=$curPeep.samaccountname
         $empID=$curPeep.uid
         Write-Host $empSam $empID
-        Get-ADUser -Server huittech1 -Identity $empSam -Properties EmployeeID,mail,uid `
+        Get-ADUser -Server addsdcserver01 -Identity $empSam -Properties EmployeeID,mail,uid `
             | Select-Object employeeid,mail,samaccountname,@{name=”uid”;expression={$_.uid -join “;”}} `
             | export-csv -NoTypeInformation -Append C:\Temp\ppnoempid.txt
 }
@@ -17,8 +17,8 @@ foreach ($curPeep in $readPeepsCSV) {
     $empSam=$curPeep.samaccountname
     $empID=$curPeep.uid
     Write-Host $empSam $empID
-    Set-ADUser -Server huittech1 -Identity $empSam -Replace @{EmployeeID = $empID}
-    Get-ADUser -Server huittech1 -Identity $empSam -Properties EmployeeID,uid,mail
+    Set-ADUser -Server addsdcserver01 -Identity $empSam -Replace @{EmployeeID = $empID}
+    Get-ADUser -Server addsdcserver01 -Identity $empSam -Properties EmployeeID,uid,mail
     #Pause
 }
 

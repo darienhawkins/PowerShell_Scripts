@@ -24,7 +24,7 @@ clear-host
 
 # Define variables, establish environment
 
-$serverBase="\\HUITSVR01\systems"
+$serverBase="\\genericfileserver01\systems"
 $uncPath="$serverBase\BannerProd\touchnet\Cashnet"
 $sendMailFolder="$serverBase\_Tools\SendEmail"
 $winscpPath="$serverBase\_Tools\WinSCP"
@@ -67,11 +67,11 @@ $lastLine=(Get-Content $appworXTarget\*$todaysDate* -Tail 1)
 
 # Send email
 $fileNameOnly=(Get-ChildItem $appworXTarget\*$todaysDate* -Name).ToString()
-$msgEmailServer="137.198.11.46"
+$msgEmailServer="aaa.bbb.11.46"
 $msgMessage="Cashnet file $fileNameOnly retrieved from eft.cashnet.com, renamed to $destFileNme, and placed for processing."
 $msgSubject="Cashnet File $fileNameOnly Retrieved"
-$msgRecipients="bannerjobs@hamptonu.edu,darien.hawkins@hamptonu.edu"
-$msgFrom="CashnetProcessAck-DoNotReply@hamptonu.edu"
+$msgRecipients="bannerjobs@higheredinstitutiondomain.edu,darien.hawkins@higheredinstitutiondomain.edu"
+$msgFrom="CashnetProcessAck-DoNotReply@higheredinstitutiondomain.edu"
 $msgArgs="-s $msgEmailServer -m $msgMessage -u $msgSubject -t $msgRecipients -f $msgFrom"
 Start-Process -FilePath $sendMailFolder\sendEmail.exe -ArgumentList $msgArgs -WindowStyle Minimized
 
@@ -80,7 +80,7 @@ Start-Sleep 3
 # Reassign only necessary sendmail variables
 $msgMessage=$lastLine
 $msgSubject="Cashnet Processing Information for File $fileNameOnly "
-$msgRecipients="verona.ham@hamptonu.edu,princess.lipscomb@hamptonu.edu,darien.hawkins@hamptonu.edu"
+$msgRecipients="verona.ham@higheredinstitutiondomain.edu,princess.lipscomb@higheredinstitutiondomain.edu,darien.hawkins@higheredinstitutiondomain.edu"
 $msgArgs="-s $msgEmailServer -m $msgMessage -u $msgSubject -t $msgRecipients -f $msgFrom"
 Start-Process -FilePath $sendMailFolder\sendEmail.exe -ArgumentList $msgArgs -WindowStyle Minimized
 

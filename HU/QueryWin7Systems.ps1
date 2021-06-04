@@ -1,6 +1,6 @@
 ﻿$eolSystems="win*7*"
-$desFile="\\huitsvr01\HUCIT\Documents\outputs\allenabledWin7computers.csv"
-$desFile2="\\huitsvr01\HUCIT\Documents\outputs\otherinfo.txt"
+$desFile="\\genericfileserver01\HUCIT\Documents\outputs\allenabledWin7computers.csv"
+$desFile2="\\genericfileserver01\HUCIT\Documents\outputs\otherinfo.txt"
 Get-ADComputer `
     -Filter {(operatingsystem -like $eolSystems) -and (Enabled -eq $true)} `
     -Properties operatingsystem,ipv4address | `

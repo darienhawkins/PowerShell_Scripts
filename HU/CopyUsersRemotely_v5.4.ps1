@@ -11,7 +11,7 @@
             admin to remotly run backup script from admin's computer
  20191205:  Added code to send an email message to CC and Help desk staff
             when script is completed
- 20191029:  Modifed to different server, huiticebrkr
+ 20191029:  Modifed to different server, genericserver
             Replaced /zb with /b for performance
  20180627:  Added functionality to auto create folder and set permissions
             Can call script and provide -user parameter for usrsname
@@ -72,7 +72,7 @@ checkComputerStatus
 
 # Prompt for necessary information and declare script scope variables
 $copyfromcomputer="yes"
-$baseUNCPath="\\huiticebrkr01\UserDataTransfers"
+$baseUNCPath="\\genericfileserver02\UserDataTransfers"
 $templateFolder="_scripts\PermissionTemplateFolder"
 $normalLocalUserDir="\\$srcComputerName\c$\users"
 $destOutlookPSTFolder="Documents\Outlook_PST_Files"
@@ -100,9 +100,9 @@ getTestUserName
 
 # Sendmail scope variables
 $u_sub="Backup Script Stutus for user: $usrsname"
-$f_adr="userbackupscript@hamptonu.edu"
-$t_rec="emailadmin@hamptonu.edu CITHelpDeskStaff@HAMPTONU.EDU"
-$s_svr="137.198.11.45:25"
+$f_adr="userbackupscript@emaildomain.edu"
+$t_rec="emailadmin@emaildomain.edu CITHelpDeskStaff@emaildomain.edu"
+$s_svr="aaa.bbb.ccc.45:25"
 
 
 #  Defines functions
@@ -111,7 +111,7 @@ function sendEmailNotification () {
     # Send message to notify completion
     $completeDatetime=(get-date).DateTime
     $m_msg="Backup script for $usrsname started at $startDatetime and completed at $completeDatetime."
-    Invoke-Command -ScriptBlock {\\huiticebrkr01\UserDataTransfers\_scripts\_SendEmail\sendEmail.exe -u $u_sub -f $f_adr -t $t_rec -s $s_svr -m $m_msg}
+    Invoke-Command -ScriptBlock {\\genericfileserver02\UserDataTransfers\_scripts\_SendEmail\sendEmail.exe -u $u_sub -f $f_adr -t $t_rec -s $s_svr -m $m_msg}
     Return
 }
 
@@ -143,8 +143,8 @@ function setACLPermissions () {
         New-Item -ItemType Directory $baseUNCPath\Users\$usrsname
         $egACL="$baseUNCPath\$templateFolder"
         $acl=Get-Acl $egACL
-        $ar1=New-Object System.Security.AccessControl.FileSystemAccessRule("infotech\computer center administrators","fullcontrol","containerinherit,objectinherit","none","allow")
-        $ar2=New-Object System.Security.AccessControl.FileSystemAccessRule("infotech\$usrsname","fullcontrol","containerinherit,objectinherit","none","allow")
+        $ar1=New-Object System.Security.AccessControl.FileSystemAccessRule("childdomain\computer center administrators","fullcontrol","containerinherit,objectinherit","none","allow")
+        $ar2=New-Object System.Security.AccessControl.FileSystemAccessRule("childdomain\$usrsname","fullcontrol","containerinherit,objectinherit","none","allow")
         $acl.AddAccessRule($ar1)
         $acl.AddAccessRule($ar2)
         Set-Acl $baseUNCPath\Users\$usrsname $acl

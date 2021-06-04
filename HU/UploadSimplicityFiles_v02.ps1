@@ -9,13 +9,13 @@
     |--------------|---------|----------------------------------------------------
     
     Uploads files to Simplicity via WinSCP.com
-    This script must be run from HUITAPPWXAGNT01 (IP: 137.198.11.60)
+    This script must be run from schedserver01 (IP: aaa.bbb.11.60)
 #>
 
 # Declare variables
-$winSCPLoc="\\huitsvr01\systems\_Tools\WinSCP"
-#$simplFileLoc="\\huitsvr01\systems\BannerProd\Student\Datafiles\Symplicity_Files"
-$simplFileLoc="\\huitsvr01\reports$\Argos_Evisions\Simplicity"
+$winSCPLoc="\\genericfileserver01\systems\_Tools\WinSCP"
+#$simplFileLoc="\\genericfileserver01\systems\BannerProd\Student\Datafiles\Symplicity_Files"
+$simplFileLoc="\\genericfileserver01\reports$\Argos_Evisions\Simplicity"
 $simplArchiveFolder="Simplicity-Archive-AfterMovedandProcessed"
 $logFileLoc="$simplFileLoc\Log"
 $timeStamp=(get-date -Format yyyyMMddTHHmm).ToString()

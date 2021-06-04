@@ -12,7 +12,7 @@
     
 #>
 
-$sourceShare="\\huitsvr01\Shares"
+$sourceShare="\\genericfileserver01\Shares"
 $fontSourceFolder=$sourceShare+"\Applications\Adobe\AdobeFonts"
 $fontNamespace = 0x14
 $objShell = New-Object -ComObject Shell.Application

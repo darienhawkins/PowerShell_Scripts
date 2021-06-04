@@ -7,4 +7,4 @@ foreach ($currTool in $rsatTool2Install) {
     Add-WindowsCapability -Online -Name $currTool -ErrorAction SilentlyContinue
     }
 
-Start-Process -WindowStyle Minimized powershell -ArgumentList "\\huitsvr01\Shares\Applications\_BaselineAppInstaller\scripts\Upate-Help.ps1"
+Start-Process -WindowStyle Minimized powershell -ArgumentList "\\genericfileserver01\Shares\Applications\_BaselineAppInstaller\scripts\Upate-Help.ps1"

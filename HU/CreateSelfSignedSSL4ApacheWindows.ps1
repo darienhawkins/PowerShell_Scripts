@@ -1,7 +1,7 @@
 cd $env:java_home\bin
 
 $svrName="installtest02"
-$fqdn="$svrName.hamptonu.edu"
+$fqdn="$svrName.higheredinstitutiondomain.edu"
 $keyLoc="C:\inserver\ssl\$svrName"
 $javaCert="lib\security\cacerts"
 

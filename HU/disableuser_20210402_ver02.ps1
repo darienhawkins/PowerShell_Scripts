@@ -51,9 +51,9 @@ function checkForParamInput {
 $projectedExpirationDate="04/01/2021"
 $DisabledUsersGroupID="127291"
 $userDN=try {(Get-ADUser $identUsr).DistinguishedName} catch {}
-$userTargetPath="OU=TerminatedEmployment,OU=Disabled-Staff and Faculty,DC=infotech,DC=hamptonu,DC=edu"
-$autoReplyMessage="Thank you for your email.  Please contact the Hampton University operator at 757-727-5000 to reach the department you are inquiring about or visit Hampton University’s website at https://www.hamptonu.edu."
-$setADDSServer="huittech1.infotech.hamptonu.edu"
+$userTargetPath="OU=TerminatedEmployment,OU=Disabled-Staff and Faculty,DC=childdomain,DC=hamptonu,DC=edu"
+$autoReplyMessage="Thank you for your email.  Please contact the Hampton University operator at 757-727-5000 to reach the department you are inquiring about or visit Hampton University’s website at https://www.higheredinstitutiondomain.edu."
+$setADDSServer="addsdcserver01.childdomain.higheredinstitutiondomain.edu"
 $extendedProperties=@{"Logonhours"= [byte[]]$hours=@(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);primaryGroupID=$DisabledUsersGroupID;employeeType="Terminated"}
 
 function generateStrongRandomPassword {
@@ -147,7 +147,7 @@ function setExchangeMailboxSettings {
     # Ensures there are no lingering values
     Remove-Variable doesUserHaveMailbox -ErrorAction SilentlyContinue
     # Check to see if running in Exchange Management Shell minus the "-version 2" switch (see syntax below)
-    # C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -command ". 'C:\Program Files\Microsoft\Exchange Server\V14\bin\RemoteExchange.ps1'; Connect-ExchangeServer HUITVEXCH01.infotech.hamptonu.edu; cd $env:userprofile; Get-ExchangeServer"
+    # C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -command ". 'C:\Program Files\Microsoft\Exchange Server\V14\bin\RemoteExchange.ps1'; Connect-ExchangeServer vexchserver01.childdomain.higheredinstitutiondomain.edu; cd $env:userprofile; Get-ExchangeServer"
     Write-Host "If Exchange module is loaded, now checking to see if user has a mailbox." -ErrorAction SilentlyContinue
     $doesUserHaveMailbox=get-Mailbox -Identity $identUsr -ErrorAction SilentlyContinue
     if ($doesUserHaveMailbox) {

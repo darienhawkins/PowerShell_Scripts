@@ -1,6 +1,6 @@
 <#
 
-Author:     Darien Hawkins <director.computercenter@hamptonu.edu>
+Author:     Darien Hawkins <director.computercenter@higheredinstitutiondomain.edu>
 Version:    1.0
 Date:       13 May 2020
 Purpose:    Import students from csv file generated from Banner/TOAD
