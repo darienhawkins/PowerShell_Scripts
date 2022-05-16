@@ -14,7 +14,7 @@ $appInstBaseDir="\\DellGenericFileServer01\Shares\Applications\_BaselineAppInsta
 $shortcutLoc=$appInstBaseDir+"\shortcuts"
 $ploc="somepassword"
 $wallPaperDir=$env:windir+"\Web\Wallpaper"
-$huWallpaper="higheredinstitutionnameU_v3_Server.jpg"
+$higherEdWallPaper="higheredinstitutionnameU_v3_Server.jpg"
 $configLoc=$appInstBaseDir+"\Configs\higheredinstitutionnameUniversity"
 $userAccPics=$env:ProgramData+"\Microsoft\User Account Pictures"
 $appsToInstall=Import-Csv $configLoc\AppsToInstall.txt
@@ -23,16 +23,16 @@ $pass=ConvertTo-SecureString -String $ploc -AsPlainText -Force
 $localUsr="somelocaladminaccount"
 $localUsrDesc="Local account for administering the computer"
 
-cls
+Clear-Host
 
-# Process HU Configs
+# Process Configs
 dism /online /enable-feature /featurename:telnetclient
 Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 foreach ($iptreg in $regFiles) {reg import $configLoc\$iptreg}
 netsh advfirewall import $configLoc\huBaselineFWRules.wfw
 winrm quickconfig -quiet -force
 
-cls
+Clear-Host
 
 <#
 
@@ -42,7 +42,7 @@ foreach ($appToInst in $appsToInstall) {
     Start-Process -FilePath $appToInst.name -ArgumentList $appToInst.arg -Wait -PassThru -WorkingDirectory $appInstBaseDir
     }
 
-cls
+Clear-Host
 
 #>
 
@@ -58,7 +58,7 @@ mkdir $env:ProgramData\higheredinstitutionnameU -ErrorAction SilentlyContinue
 Remove-Item $userAccPics\*.dat -Force -ErrorAction SilentlyContinue
 
 # Copy HU custom Files
-Copy-Item $configLoc\$huWallpaper $wallPaperDir\higheredinstitutionnameU -ErrorAction SilentlyContinue
+Copy-Item $configLoc\$higherEdWallPaper $wallPaperDir\higheredinstitutionnameU -ErrorAction SilentlyContinue
 Copy-Item $userAccPics\*.* $userAccPics\OEM -ErrorAction SilentlyContinue
 Copy-Item $configLoc\UserAccountPictures\*.* $userAccPics\ -ErrorAction SilentlyContinue
 
@@ -66,7 +66,7 @@ Copy-Item $configLoc\UserAccountPictures\*.* $userAccPics\ -ErrorAction Silently
 Start-Process -FilePath $appInstBaseDir\LGPO\LGPO.exe -ArgumentList "/g $configLoc\LocalGroupPolicy"
 # Import-StartLayout -MountPath $env:SystemDrive\ -LayoutPath $configLoc\hubaselineinstall_v02.xml
 
-cls
+Clear-Host
 
 # Add HUCITCC local user
 New-LocalUser -Name $localUsr -Password $pass -PasswordNeverExpires -Description $localUsrDesc
@@ -75,6 +75,6 @@ Add-LocalGroupMember -Group "administrators" -Member $localUsr
 # CD back to system drive
 cd $env:SystemDrive
 
-cls
+Clear-Host
 
 Write-Host "Install complete (from what we can tell).  Please restart computer."
