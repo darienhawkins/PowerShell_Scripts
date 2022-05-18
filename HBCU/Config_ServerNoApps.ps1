@@ -18,7 +18,7 @@ $higherEdWallPaper="higheredinstitutionnameU_v3_Server.jpg"
 $configLoc=$appInstBaseDir+"\Configs\higheredinstitutionnameUniversity"
 $userAccPics=$env:ProgramData+"\Microsoft\User Account Pictures"
 $appsToInstall=Import-Csv $configLoc\AppsToInstall.txt
-$regFiles="DisableSmartScreenTemp.reg","HUOEMReg-Server.reg","enableRDP.reg"
+$regFiles="DisableSmartScreenTemp.reg","HigherEDReg-Server.reg","enableRDP.reg"
 $pass=ConvertTo-SecureString -String $ploc -AsPlainText -Force
 $localUsr="somelocaladminaccount"
 $localUsrDesc="Local account for administering the computer"
@@ -29,7 +29,7 @@ Clear-Host
 dism /online /enable-feature /featurename:telnetclient
 Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 foreach ($iptreg in $regFiles) {reg import $configLoc\$iptreg}
-netsh advfirewall import $configLoc\huBaselineFWRules.wfw
+netsh advfirewall import $configLoc\higheredbaselineFWRules.wfw
 winrm quickconfig -quiet -force
 
 Clear-Host
@@ -57,18 +57,18 @@ mkdir $env:ProgramData\higheredinstitutionnameU -ErrorAction SilentlyContinue
 # Delete unecessary items, remove JAVA update binaries, cleanup
 Remove-Item $userAccPics\*.dat -Force -ErrorAction SilentlyContinue
 
-# Copy HU custom Files
+# Copy HigherED custom Files
 Copy-Item $configLoc\$higherEdWallPaper $wallPaperDir\higheredinstitutionnameU -ErrorAction SilentlyContinue
 Copy-Item $userAccPics\*.* $userAccPics\OEM -ErrorAction SilentlyContinue
 Copy-Item $configLoc\UserAccountPictures\*.* $userAccPics\ -ErrorAction SilentlyContinue
 
 # Import LGPO Settings and default Start Layout
 Start-Process -FilePath $appInstBaseDir\LGPO\LGPO.exe -ArgumentList "/g $configLoc\LocalGroupPolicy"
-# Import-StartLayout -MountPath $env:SystemDrive\ -LayoutPath $configLoc\hubaselineinstall_v02.xml
+# Import-StartLayout -MountPath $env:SystemDrive\ -LayoutPath $configLoc\higheredbaselineinstall_v02.xml
 
 Clear-Host
 
-# Add HUCITCC local user
+# Add departmentsharefolderCC local user
 New-LocalUser -Name $localUsr -Password $pass -PasswordNeverExpires -Description $localUsrDesc
 Add-LocalGroupMember -Group "administrators" -Member $localUsr
 

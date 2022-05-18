@@ -61,8 +61,8 @@ function setACLPermissions () {
         New-Item -ItemType Directory $baseUNCPath\Users\$usrsname
         $egACL="$baseUNCPath\$templateFolder"
         $acl=Get-Acl $egACL
-        $ar1=New-Object System.Security.AccessControl.FileSystemAccessRule("infotech\computer center administrators","fullcontrol","containerinherit,objectinherit","none","allow")
-        $ar2=New-Object System.Security.AccessControl.FileSystemAccessRule("infotech\$usrsname","fullcontrol","containerinherit,objectinherit","none","allow")
+        $ar1=New-Object System.Security.AccessControl.FileSystemAccessRule("higheredchilddomain\computer center administrators","fullcontrol","containerinherit,objectinherit","none","allow")
+        $ar2=New-Object System.Security.AccessControl.FileSystemAccessRule("higheredchilddomain\$usrsname","fullcontrol","containerinherit,objectinherit","none","allow")
         $acl.AddAccessRule($ar1)
         $acl.AddAccessRule($ar2)
         Set-Acl $baseUNCPath\Users\$usrsname $acl

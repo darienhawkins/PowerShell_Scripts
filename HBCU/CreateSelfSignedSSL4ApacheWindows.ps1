@@ -4,7 +4,7 @@ cd $env:java_home\bin
 
 $svrName="installtest02"
 $fqdn="$svrName.higheredinstitutiondomain.edu"
-$keyLoc="C:\inserver\ssl\$svrName"
+$keyLoc="C:\higeredwebsvr\ssl\$svrName"
 $javaCert="lib\security\cacerts"
 
 
@@ -17,7 +17,7 @@ read-host "Press any key to continue"
 .\keytool.exe -exportcert -keystore "$keyLoc.jks" -alias $svrName -file "$keyLoc.cer"
 
 read-host "Press any key to continue"
-#.\keytool.exe -import -file "$keyLoc.cer" -alias PSG-772022 -keystore "$keyLoc.ts"
+#.\keytool.exe -import -file "$keyLoc.cer" -alias aliasname -keystore "$keyLoc.ts"
 .\keytool.exe -import -file "$keyLoc.cer" -alias $svrName -keystore "$keyLoc.ts"
 
 read-host "Press any key to continue. The password for the next command is 'changeit'"

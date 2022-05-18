@@ -3,7 +3,7 @@ clear-host
 
 ###################################################################################
 #
-#  Process Cashnet files
+#  Process casheringApp1 files
 #  Written by Darien Hawkins, Director
 #  Version 1.0
 #
@@ -26,7 +26,7 @@ clear-host
 # Define variables, establish environment
 
 $serverBase="\\DellGenericFileServer01\systems"
-$uncPath="$serverBase\BannerProd\touchnet\Cashnet"
+$uncPath="$serverBase\ERPApplicationProd\touchnet\casheringApp1"
 $sendMailFolder="$serverBase\_Tools\SendEmail"
 $winscpPath="$serverBase\_Tools\WinSCP"
 $scriptFolder="scripts"
@@ -36,7 +36,7 @@ $appworXTarget="\\oldschedserver01\Appworx$\Prod\ARStudent"
 $todaysDate=(Get-date -Format yyyyMMdd)
 $thisYear=(Get-date -Format yyyy)
 $destFileNme="TYRSPAY.dat"
-$archive1="$serverBase\BannerProd\AR-Student\Datafiles\Cashnet\$thisYear"
+$archive1="$serverBase\ERPApplicationProd\AR-Student\Datafiles\casheringApp1\$thisYear"
 
 
 #Invoke commandline WinSCP and call script file
@@ -69,10 +69,10 @@ $lastLine=(Get-Content $appworXTarget\*$todaysDate* -Tail 1)
 # Send email
 $fileNameOnly=(Get-ChildItem $appworXTarget\*$todaysDate* -Name).ToString()
 $msgEmailServer="aaa.bbb.ccc.ddd"
-$msgMessage="Cashnet file $fileNameOnly retrieved from eft.cashnet.com, renamed to $destFileNme, and placed for processing."
-$msgSubject="Cashnet File $fileNameOnly Retrieved"
-$msgRecipients="bannerjobs@higheredinstitutiondomain.edu,darien.hawkins@higheredinstitutiondomain.edu"
-$msgFrom="CashnetProcessAck-DoNotReply@higheredinstitutiondomain.edu"
+$msgMessage="casheringApp1 file $fileNameOnly retrieved from eft.casheringApp1.com, renamed to $destFileNme, and placed for processing."
+$msgSubject="casheringApp1 File $fileNameOnly Retrieved"
+$msgRecipients="ERPApplicationjobs@higheredinstitutiondomain.edu,person1@higheredinstitutiondomain.edu"
+$msgFrom="casheringApp1ProcessAck-DoNotReply@higheredinstitutiondomain.edu"
 $msgArgs="-s $msgEmailServer -m $msgMessage -u $msgSubject -t $msgRecipients -f $msgFrom"
 Start-Process -FilePath $sendMailFolder\sendEmail.exe -ArgumentList $msgArgs -WindowStyle Minimized
 
@@ -80,8 +80,8 @@ Start-Sleep 3
 
 # Reassign only necessary sendmail variables
 $msgMessage=$lastLine
-$msgSubject="Cashnet Processing Information for File $fileNameOnly "
-$msgRecipients="verona.ham@higheredinstitutiondomain.edu,princess.lipscomb@higheredinstitutiondomain.edu,darien.hawkins@higheredinstitutiondomain.edu"
+$msgSubject="casheringApp1 Processing Information for File $fileNameOnly "
+$msgRecipients="person4@higheredinstitutiondomain.edu,person2@higheredinstitutiondomain.edu,person1@higheredinstitutiondomain.edu"
 $msgArgs="-s $msgEmailServer -m $msgMessage -u $msgSubject -t $msgRecipients -f $msgFrom"
 Start-Process -FilePath $sendMailFolder\sendEmail.exe -ArgumentList $msgArgs -WindowStyle Minimized
 

@@ -39,7 +39,7 @@ $tryCount=0
 
 # $logonhours=@{"Logonhours"= [byte[]]$hours=@(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)}
 # Declare and instantiate variables
-$termListFolderBase="\\DellGenericFileServer01\Shares\HUCCIT\Terminate_List"
+$termListFolderBase="\\DellGenericFileServer01\Shares\departmentsubfolder\Terminate_List"
 $DisabledUsersGroupName="Disabled_Users"
 $DisabledUsersGroupID="127291"
 # $userObjectGUID=try {(Get-ADUser $identUsr).ObjectGUID} catch {}
@@ -133,7 +133,7 @@ function disableAccountinAD {
             -Enabled $false `
             -LogonWorkstations 'nonexx' `
             -Replace $extendedProperties `
-            -PostalCode 'd23668' `
+            -PostalCode 'd55555' `
             -CannotChangePassword $true `
             -Manager $null `
             -HomePage $null `

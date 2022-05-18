@@ -39,13 +39,13 @@ $shortcutLoc=$appInstBaseDir+"\shortcuts"
 $ploc="somepassword"
 $ploc2="someotherpassword"
 $wallPaperDir=$env:windir+"\Web\Wallpaper"
-$huWallpaper="higheredinstitutionnameU_2018_01.jpg"
+$higheredwallpaper="higheredinstitutionnameU_2018_01.jpg"
 $configLoc=$appInstBaseDir+"\Configs\higheredinstitutionnameUniversity"
 $userAccPics=$env:ProgramData+"\Microsoft\User Account Pictures"
 
 #$appsToInstall=Import-Csv $configLoc\AppsToInstall.txt
 
-$regFiles="DisableSmartScreenTemp.reg","HUOEMReg.reg","enableRDP.reg"
+$regFiles="DisableSmartScreenTemp.reg","HigherEDReg.reg","enableRDP.reg"
 $pass=ConvertTo-SecureString -String $ploc -AsPlainText -Force
 $pass2=ConvertTo-SecureString -String $ploc2 -AsPlainText -Force
 $localUsr="somelocaladminaccount"
@@ -110,12 +110,12 @@ Start-Job -FilePath "\\DellGenericFileServer01\Shares\Applications\_BaselineAppI
 
 Clear-Host
 
-# Process HU Configs
+# Process Configs
 # Update-Help -Force -ErrorAction SilentlyContinue
 dism /online /enable-feature /featurename:telnetclient /NoRestart
 # Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0 -ErrorAction SilentlyContinue
 foreach ($iptreg in $regFiles) {reg import $configLoc\$iptreg}
-netsh advfirewall import $configLoc\huBaselineFWRules.wfw
+netsh advfirewall import $configLoc\higheredbaselineFWRules.wfw
 winrm quickconfig -quiet -force
 
 
@@ -137,9 +137,9 @@ mkdir $env:ProgramData\higheredinstitutionnameU -ErrorAction SilentlyContinue
 
 Clear-Host
 
-# Copy HU custom Files
+# Copy HigherED custom Files
 Copy-Item $configLoc\UpdateChangeLog.txt $env:systemdrive\ -ErrorAction SilentlyContinue
-Copy-Item $configLoc\$huWallpaper $wallPaperDir\higheredinstitutionnameU -ErrorAction SilentlyContinue
+Copy-Item $configLoc\$higheredwallpaper $wallPaperDir\higheredinstitutionnameU -ErrorAction SilentlyContinue
 Copy-Item $userAccPics\*.* $userAccPics\OEM -ErrorAction SilentlyContinue
 Copy-Item $configLoc\UserAccountPictures\*.* $userAccPics\ -ErrorAction SilentlyContinue
 Copy-Item $configLoc\"Internet Explorer.lnk" $env:ProgramData\"Microsoft\Windows\Start Menu\Programs"
@@ -147,7 +147,7 @@ Copy-Item $configLoc\"Internet Explorer.lnk" $env:ProgramData\"Microsoft\Windows
 
 Clear-Host
 
-# Add HUCITCC local users
+# Add departmentsharefolderCC local users
 New-LocalUser -Name $localUsr -Password $pass -PasswordNeverExpires -Description $localUsrDesc -ErrorAction SilentlyContinue
 Add-LocalGroupMember -Group "administrators" -Member $localUsr -ErrorAction SilentlyContinue
 New-LocalUser -Name $localUsr2 -Password $pass2 -PasswordNeverExpires -Description $localUsrDesc -ErrorAction SilentlyContinue
@@ -219,8 +219,8 @@ Clear-Host
 
 # Import LGPO Settings and default Start Layout
 Start-Process -FilePath $appInstBaseDir\LGPO\LGPO.exe -ArgumentList "/g $configLoc\LocalGroupPolicy"
-# Import-StartLayout -MountPath $env:SystemDrive\ -LayoutPath $configLoc\hubaselineinstall_v03.xml
-Import-StartLayout -MountPath $env:SystemDrive\ -LayoutPath $configLoc\huStartMenu_v04.xml
+# Import-StartLayout -MountPath $env:SystemDrive\ -LayoutPath $configLoc\higheredbaselineinstall_v03.xml
+Import-StartLayout -MountPath $env:SystemDrive\ -LayoutPath $configLoc\higheredStartMenu_v04.xml
 
 
 Clear-Host

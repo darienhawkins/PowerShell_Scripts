@@ -1,12 +1,12 @@
 ﻿# Important information obfuscated (hostname, IP address, username, password, etc)
 
 $eolSystems="win*7*"
-$desFile="\\DellGenericFileServer01\HUCIT\Documents\outputs\allenabledWin7computers.csv"
-$desFile2="\\DellGenericFileServer01\HUCIT\Documents\outputs\otherinfo.txt"
+$desFile="\\DellGenericFileServer01\departmentsharefolder\Documents\outputs\allenabledWin7computers.csv"
+$desFile2="\\DellGenericFileServer01\departmentsharefolder\Documents\outputs\otherinfo.txt"
 Get-ADComputer `
     -Filter {(operatingsystem -like $eolSystems) -and (Enabled -eq $true)} `
     -Properties operatingsystem,ipv4address | `
-    Where-Object ipv4address -like "aaa*" | `
+    Where-Object ipv4address -like "192*" | `
     Select-Object name,ipv4address,operatingsystem |`
     Export-Csv -NoTypeInformation $desFile
 

@@ -3,17 +3,20 @@
 <#
 ###############################################################################
   For Windows Vista and later OS
-  Date Modified: 10 Dec 2019
-  Version: 5.4
+  Date Modified: 07 Jun 2020
+  Version: 5.5
   Scripted By: Darien Hawkins
 
+ 20200707:  Added variable to reflect source computer being backed up in
+            SENDMAIL message body
+ 20191211:  Fixed sendmail to allow multiple recipients
  20191210:  Added code to check for valid computer and user name prior
             to performing backup operation
  20191205:  Modified to prompt for computer name and user name to allow an
             admin to remotly run backup script from admin's computer
  20191205:  Added code to send an email message to CC and Help desk staff
             when script is completed
- 20191029:  Modifed to different server, genericserver
+ 20191029:  Modifed to different server, largefileserver02
             Replaced /zb with /b for performance
  20180627:  Added functionality to auto create folder and set permissions
             Can call script and provide -user parameter for usrsname
@@ -72,9 +75,11 @@ function checkComputerStatus {
 }
 checkComputerStatus
 
-# Prompt for necessary information and declare script scope variables
+
+
+# Declare script scope variables
 $copyfromcomputer="yes"
-$baseUNCPath="\\SuperMicroDellGenericFileServer01\UserDataTransfers"
+$baseUNCPath="\\largefileserver02\UserDataTransfers"
 $templateFolder="_scripts\PermissionTemplateFolder"
 $normalLocalUserDir="\\$srcComputerName\c$\users"
 $destOutlookPSTFolder="Documents\Outlook_PST_Files"
@@ -98,22 +103,20 @@ function getTestUserName {
 }
 getTestUserName
 
-
-
 # Sendmail scope variables
-$u_sub="Backup Script Stutus for user: $usrsname"
-$f_adr="userbackupscript@emaildomain.edu"
-$t_rec="emailadmin@emaildomain.edu CITHelpDeskStaff@emaildomain.edu"
-$s_svr="aaa.bbb.ccc.45:25"
-
+$u_sub="Backup Script Status for user: $usrsname"
+$f_adr="userbackupscript@higheredinstitutionnameU.edu"
+$t_rec1="ccorgmailbox@higheredinstitutionnameU.edu"
+$t_rec2="helpdeskorgmailbox@higheredinstitutionnameU.edu"
+$s_svr="192.123.11.45:25"
 
 #  Defines functions
 
 function sendEmailNotification () {
     # Send message to notify completion
     $completeDatetime=(get-date).DateTime
-    $m_msg="Backup script for $usrsname started at $startDatetime and completed at $completeDatetime."
-    Invoke-Command -ScriptBlock {\\SuperMicroDellGenericFileServer01\UserDataTransfers\_scripts\_SendEmail\sendEmail.exe -u $u_sub -f $f_adr -t $t_rec -s $s_svr -m $m_msg}
+    $m_msg="Backup script for $usrsname on computer $srcComputerName was run by $env:USERNAME from computer $env:COMPUTERNAME.  The backup process started at $startDatetime and completed at $completeDatetime."
+    Invoke-Command -ScriptBlock {\\largefileserver02\UserDataTransfers\_scripts\_SendEmail\sendEmail.exe -u $u_sub -f $f_adr -t $t_rec1 $t_rec2 -s $s_svr -m $m_msg}
     Return
 }
 
@@ -145,8 +148,8 @@ function setACLPermissions () {
         New-Item -ItemType Directory $baseUNCPath\Users\$usrsname
         $egACL="$baseUNCPath\$templateFolder"
         $acl=Get-Acl $egACL
-        $ar1=New-Object System.Security.AccessControl.FileSystemAccessRule("childdomain\computer center administrators","fullcontrol","containerinherit,objectinherit","none","allow")
-        $ar2=New-Object System.Security.AccessControl.FileSystemAccessRule("childdomain\$usrsname","fullcontrol","containerinherit,objectinherit","none","allow")
+        $ar1=New-Object System.Security.AccessControl.FileSystemAccessRule("higheredchilddomain\computer center administrators","fullcontrol","containerinherit,objectinherit","none","allow")
+        $ar2=New-Object System.Security.AccessControl.FileSystemAccessRule("higheredchilddomain\$usrsname","fullcontrol","containerinherit,objectinherit","none","allow")
         $acl.AddAccessRule($ar1)
         $acl.AddAccessRule($ar2)
         Set-Acl $baseUNCPath\Users\$usrsname $acl

@@ -2,10 +2,10 @@
 
 <#
 
-Author:     Darien Hawkins <director.computercenter@higheredinstitutiondomain.edu>
+Author:     Darien Hawkins <directorccorgmailbox@higheredinstitutiondomain.edu>
 Version:    1.0
 Date:       13 May 2020
-Purpose:    Import students from csv file generated from Banner/TOAD
+Purpose:    Import students from csv file generated from ERPApplication/TOAD
             Replace old batch file using soon-to-be deprecated commands
             No longer require seperate text file for third-party ID and PW
 
@@ -14,7 +14,7 @@ Purpose:    Import students from csv file generated from Banner/TOAD
 Clear-Host
 
 # Declare script global variables
-$preferredDC="darien-dc-01"
+$preferredDC="domaincontroller02"
 $csvPath="C:\Temp"
 $logPath="$csvPath\Scripts\Logs"
 $oldPath="$csvPath\Scripts\Old"
@@ -22,7 +22,7 @@ $studentImportFullPath=""
 $studentImportFile=""
 $studentImportFileName=""
 $Desc="OFF CAMPUS"
-$studentGroups="All Users","HuStudents","Pirate Wireless 1","QPMRegistration"
+$studentGroups="All Users","EDUStudents","Wireless 1","SomeGroupRegistration"
 $timeStamp=get-date -Format yyyyMMdd@hhMMss
 
 # Main function to test for the existance of the CSV file and passes focus to functions
